@@ -1,22 +1,22 @@
 class SortedList {
   constructor() {
-    this.items=[]
-    this.length= this.items.length
+    this.items=[];
+    this.length= this.items.length;
   }
 
   add(item) {
-    if(this.length === undefined){
       this.items.push(item);
-    } else {
-        this.items.push(item);
-        this.items.sort(function(a, b) {
-        return a - b;
-      });
-    }
+      this.items.sort((a, b) => a - b);
+      this.length = this.items.length;    
   }
 
   get(pos) {
-    if (this.items[pos] === undefinded){
+    //if (this.items[pos] === undefinded){
+    //  throw new Error('OutOfBounds');
+    //} else {
+    //  return this.items[pos];
+    //}//---verde mi codigo, debajo el que hice con mi hermana, porque uno da mal y el otro bien??-----
+    if (this.items[pos] === undefined ){
       throw new Error('OutOfBounds');
     } else {
       return this.items[pos];
@@ -24,18 +24,16 @@ class SortedList {
   }
 
   max() {
-    if(this.length === undefinded){
-      throw new Error('EmptySortedList');
+    if(!this.length){
+        throw new Error('EmptySortedList');
     } else {
-      this.items.reduce(function(a, b) {
-        return Math.max(a, b);
-    });
+        return Math.max(...this.items);
     }
   }
 
   min() {
-    if(this.length === undefinded){
-      throw new Error('EmptySortedList');
+    if(!this.length){
+        throw new Error('EmptySortedList');
     } else {
         return Math.min(...this.items);
     }
@@ -43,12 +41,17 @@ class SortedList {
   
 
   sum() {
-    if(this.length === undefined){
-      return 0;
-    }
+    if(!this.length) return 0;
+    let sumTotal = this.items.reduce((acc, value) => {
+      return acc + value
+    }, 0)
+    return sumTotal;
   }
 
-  avg() {}
+  avg() {
+    if(!this.length) throw new Error("EmptySortedList")
+    return this.sum()/this.length;
+  }
 }
 
 module.exports = SortedList;
